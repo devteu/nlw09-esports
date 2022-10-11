@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//migration -> controle, versionamento do banco de dados, linha do tempo das alterações do banco de dados
 
 generator client {
   provider = "prisma-client-js"
@@ -14,7 +13,8 @@ model Game {
   id        String @id @default(uuid())
   title     String
   bannerUrl String
-  ads       Ad[]
+
+  ads Ad[] //não produz esse campo na tabela Game, o prisma cria só pra saber que existe o relacionamento
 }
 
 model Ad {
@@ -28,5 +28,6 @@ model Ad {
   hourEnd         Int
   useVoiceChannel Boolean
   createdAt       DateTime @default(now())
-  game            Game     @relation(fields: [gameId], references: [id])
+
+  game Game @relation(fields: [gameId], references: [id])
 }
